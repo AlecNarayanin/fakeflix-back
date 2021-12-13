@@ -44,6 +44,8 @@ public class Film implements Serializable {
     @JoinTable(name = "film_categories", joinColumns = @JoinColumn(name = "categorie_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Categorie> filmCategories;
 
+    @ManyToMany(mappedBy = "filmFavoris")
+    private List<Utilisateur> favoris;
 
     public Integer getId() {
         return id;
@@ -115,5 +117,14 @@ public class Film implements Serializable {
 
     public void setFilmCategories(List<Categorie> filmCategories) {
         this.filmCategories = filmCategories;
+    }
+
+
+    public List<Utilisateur> getFavoris() {
+        return favoris;
+    }
+
+    public void setFavoris(List<Utilisateur> favoris) {
+        this.favoris = favoris;
     }
 }
