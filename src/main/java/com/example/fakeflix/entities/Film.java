@@ -16,9 +16,9 @@ public class Film implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "nom")
     @NotNull
-    private String name;
+    private String nom;
 
     @Column(name = "annee")
     @NotNull
@@ -31,12 +31,19 @@ public class Film implements Serializable {
     @Column(name = "score")
     private Double score;
 
+    @Column(name = "categorie_age")
+    private Integer categorieAge;
+
+    @Column(name = "url_image_film")
+    private String urlImageFilm;
+
     @OneToMany(mappedBy = "film")
-    private List<Participation> participed_person = new ArrayList<Participation>();
+    private List<Participation> participants = new ArrayList<Participation>();
 
     @ManyToMany
     @JoinTable(name = "film_categories", joinColumns = @JoinColumn(name = "categorie_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Categorie> filmCategories;
+
 
     public Integer getId() {
         return id;
@@ -46,12 +53,12 @@ public class Film implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     public Date getAnnee() {
@@ -76,6 +83,30 @@ public class Film implements Serializable {
 
     public void setScore(Double score) {
         this.score = score;
+    }
+
+    public Integer getCategorieAge() {
+        return categorieAge;
+    }
+
+    public void setCategorieAge(Integer categorieAge) {
+        this.categorieAge = categorieAge;
+    }
+
+    public String getUrlImageFilm() {
+        return urlImageFilm;
+    }
+
+    public void setUrlImageFilm(String urlImageFilm) {
+        this.urlImageFilm = urlImageFilm;
+    }
+
+    public List<Participation> getParticipants() {
+        return participants;
+    }
+
+    public void setParticipants(List<Participation> participants) {
+        this.participants = participants;
     }
 
     public List<Categorie> getFilmCategories() {
