@@ -22,7 +22,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.security.web.session.SessionManagementFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -63,12 +63,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-
+    @Bean
+    CorsConfiguration corsFilter() {
+        return new CorsConfiguration();
+    }
 
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().and().csrf().disable()
+        httpSecurity.addFilterBefore(corsFilter(), SessionManagementFilter.class).csrf().disable()
                 .authorizeRequests().antMatchers("/auth").permitAll().and()
                 .authorizeRequests().antMatchers("/api").permitAll().and()
                 .authorizeRequests().antMatchers("/swagger-ui/index.html").permitAll().and()
