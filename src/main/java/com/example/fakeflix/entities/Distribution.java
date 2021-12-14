@@ -13,12 +13,12 @@ public class Distribution {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "name")
+    @Column(name = "nom")
     @NotNull
-    private String name;
+    private String nom;
 
-    @Column(name = "created_date")
-    private Date createdDate;
+    @Column(name = "date_creation")
+    private Date dateCreation;
 
 
     public Integer getId() {
@@ -29,19 +29,19 @@ public class Distribution {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getNom() {
+        return nom;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public Date getDateCreation() {
+        return dateCreation;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setDateCreation(Date dateCreation) {
+        this.dateCreation = dateCreation;
     }
 }
