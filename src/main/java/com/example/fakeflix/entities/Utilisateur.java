@@ -1,14 +1,17 @@
 package com.example.fakeflix.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "utilisateurs")
-public class Utilisateur {
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
+public class Utilisateur implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,6 +34,9 @@ public class Utilisateur {
     @ManyToMany
     @JoinTable(name="filmFavoris", joinColumns = @JoinColumn(name = "utilisateur_id"), inverseJoinColumns = @JoinColumn(name = "film_id"))
     private List<Film> filmFavoris;
+
+
+
 
     public Integer getId() {
         return id;
