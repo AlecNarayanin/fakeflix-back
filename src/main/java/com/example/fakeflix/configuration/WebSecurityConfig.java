@@ -16,6 +16,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.header.writers.StaticHeadersWriter;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.List;
@@ -52,14 +53,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors().configurationSource(request -> {
-                    var cors = new CorsConfiguration();
-                    cors.setAllowedOrigins(List.of("http://localhost:3000", "https://localhost:3000"));
-                    cors.setAllowedMethods(List.of("GET","POST", "PUT", "DELETE", "OPTIONS"));
-                    cors.setAllowedHeaders(List.of("*"));
-                    return cors;
-                }).and()
-                .csrf().disable()
+        httpSecurity.csrf().disable()
+                .headers().addHeaderWriter(new StaticHeadersWriter("Access-Control-Allow-Origin", "*")).and()
                 .authorizeRequests().antMatchers("/auth").permitAll().and()
                 .authorizeRequests().antMatchers("/api").permitAll().and()
                 .authorizeRequests().antMatchers("/swagger-ui/index.html").permitAll().and()
