@@ -1,5 +1,7 @@
 package com.example.fakeflix.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -21,6 +23,7 @@ public class Utilisateur {
     @NotNull
     private String email;
 
+    @JsonIgnore
     @Column(name = "password")
     @NotNull
     private String password;
