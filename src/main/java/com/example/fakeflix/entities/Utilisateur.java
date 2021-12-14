@@ -6,7 +6,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Entity
 @Table(name = "utilisateurs")
@@ -77,5 +80,22 @@ public class Utilisateur implements Serializable {
 
     public void setFilmFavoris(List<Film> filmFavoris) {
         this.filmFavoris = filmFavoris;
+    }
+
+    public void addFilm(Film f){
+
+        if(this.filmFavoris == null)
+            this.filmFavoris = new ArrayList<Film>();
+
+        this.filmFavoris.add(f);
+    }
+
+
+    public void removeFilm(Film f){
+        if(this.filmFavoris != null){
+            Film filmToRemove = this.filmFavoris.stream().filter(x -> x.getId().equals(this.id)).findAny().orElse(null);
+            if(filmToRemove != null)
+                this.filmFavoris.remove(filmToRemove);
+        }
     }
 }
