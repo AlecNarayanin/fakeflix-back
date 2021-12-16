@@ -1,35 +1,40 @@
 package com.example.fakeflix.models.user;
 
 import com.example.fakeflix.entities.Utilisateur;
+import jdk.jshell.execution.Util;
 
-import javax.persistence.Column;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
-public class RegisterDTO implements Serializable {
+public class UpsertDTO implements Serializable {
 
+    private Integer Id;
     private String Username;
-
-    private String Email;
-
+    private String email;
     private String Password;
 
-    public RegisterDTO(){}
+
+    public Integer getId() {
+        return Id;
+    }
+
+    public void setId(Integer id) {
+        Id = id;
+    }
 
     public String getUsername() {
         return Username;
     }
 
     public void setUsername(String username) {
-        this.Username = username;
+        Username = username;
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
     public void setEmail(String email) {
-        this.Email = email;
+        this.email = email;
     }
 
     public String getPassword() {
@@ -37,16 +42,14 @@ public class RegisterDTO implements Serializable {
     }
 
     public void setPassword(String password) {
-        this.Password = password;
+        Password = password;
     }
 
 
-    public Utilisateur toModel(){
-        Utilisateur u = new Utilisateur();
+    public Utilisateur MapUserModelFromDTO(Utilisateur u){
         u.setNomUtilisateur(this.getUsername());
-        u.setPassword(this.getPassword());
         u.setEmail(this.getEmail());
-        return  u;
+        return u;
     }
 
 }
