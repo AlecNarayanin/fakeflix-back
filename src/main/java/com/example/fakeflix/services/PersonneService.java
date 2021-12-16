@@ -40,8 +40,7 @@ public class PersonneService {
     public boolean delete(Integer id) {
         boolean check = checkExistence(id);
         if(check){
-            //TODO Delete ids sur la table participation
-            //personneRepository.deleteById(id);
+            personneRepository.deleteById(id);
         }
         return check;
 
