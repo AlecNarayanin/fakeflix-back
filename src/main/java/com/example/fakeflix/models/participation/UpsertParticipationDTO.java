@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
-public class UpsertDTO implements Serializable {
+public class UpsertParticipationDTO implements Serializable {
 
     @Autowired
     private PersonneService personneService;

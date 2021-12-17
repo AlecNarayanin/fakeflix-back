@@ -1,15 +1,25 @@
 package com.example.fakeflix.models.distribution;
 
 import com.example.fakeflix.entities.Distribution;
+import com.example.fakeflix.entities.Utilisateur;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RegisterDTO {
-    private String nom;
+public class UpsertDistributionDTO implements Serializable {
 
+    private Integer id;
+    private String nom;
     private Date dateCreation;
 
-    public RegisterDTO(){}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getNom() {
         return nom;
@@ -27,10 +37,9 @@ public class RegisterDTO {
         this.dateCreation = dateCreation;
     }
 
-    public Distribution toModel(){
-        Distribution d = new Distribution();
+    public Distribution mapDistributionModelFromDTO(Distribution d){
         d.setNom(this.getNom());
         d.setDateCreation(this.getDateCreation());
-        return  d;
+        return d;
     }
 }

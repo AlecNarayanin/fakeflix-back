@@ -4,18 +4,11 @@ import com.example.fakeflix.entities.Categorie;
 
 import java.io.Serializable;
 
-public class UpsertDTO implements Serializable {
+public class RegisterCategorieDTO implements Serializable {
 
-    private Integer id;
     private String label;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public RegisterCategorieDTO(){}
 
     public String getLabel() {
         return label;
@@ -25,9 +18,9 @@ public class UpsertDTO implements Serializable {
         this.label = label;
     }
 
-    public Categorie mapCategorieModelFromDTO(Categorie c){
+    public Categorie toModel(){
+        Categorie c = new Categorie();
         c.setLabel(this.getLabel());
-        return c;
+        return  c;
     }
-
 }

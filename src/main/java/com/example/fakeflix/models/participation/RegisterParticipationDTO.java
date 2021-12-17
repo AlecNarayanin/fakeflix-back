@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
-public class RegisterDTO implements Serializable {
+public class RegisterParticipationDTO implements Serializable {
 
     @Autowired
     private FilmService filmService;

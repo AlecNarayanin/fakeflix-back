@@ -1,12 +1,11 @@
 package com.example.fakeflix.models.person;
 
 import com.example.fakeflix.entities.Personne;
-import com.example.fakeflix.entities.Utilisateur;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class UpsertDTO implements Serializable {
+public class RegisterPersonDTO implements Serializable {
 
     private Integer id;
 
@@ -48,10 +47,12 @@ public class UpsertDTO implements Serializable {
         this.birthday = birthday;
     }
 
-    public Personne mapPersonModelFromDTO(Personne p){
+    public Personne toModel(){
+        Personne p = new Personne();
         p.setFirstname(this.getFirstname());
         p.setLastname(this.getLastname());
         p.setBirthday(this.getBirthday());
-        return p;
+        return  p;
     }
+
 }
