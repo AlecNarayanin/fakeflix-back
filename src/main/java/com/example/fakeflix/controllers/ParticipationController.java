@@ -1,6 +1,7 @@
 package com.example.fakeflix.controllers;
 
 import com.example.fakeflix.entities.Participation;
+import com.example.fakeflix.models.participation.RegisterParticipationDTO;
 import com.example.fakeflix.models.participation.UpsertParticipationDTO;
 import com.example.fakeflix.services.ParticipationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,9 +27,9 @@ public class ParticipationController {
     }
 
     @RequestMapping(value ="/participation" , method = RequestMethod.POST)
-    public ResponseEntity<?> createParticipation(@RequestBody UpsertParticipationDTO upsertParticipationDTO) throws Exception {
+    public ResponseEntity<?> createParticipation(@RequestBody RegisterParticipationDTO registerParticipationDTO) throws Exception {
         try{
-            Participation p = upsertParticipationDTO.mapParticipationModelFromDTO(participationService.getById(upsertParticipationDTO.getId()));
+            Participation p = registerParticipationDTO.toModel();
             participationService.create(p);
             return ResponseEntity.ok("create success");
         }catch (Exception e){

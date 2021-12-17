@@ -3,15 +3,18 @@ package com.example.fakeflix.models.participation;
 import com.example.fakeflix.entities.Participation;
 import com.example.fakeflix.services.FilmService;
 import com.example.fakeflix.services.PersonneService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.Serializable;
 
 public class UpsertParticipationDTO implements Serializable {
 
+    @JsonIgnore
     @Autowired
     private PersonneService personneService;
 
+    @JsonIgnore
     @Autowired
     private FilmService filmService;
 
