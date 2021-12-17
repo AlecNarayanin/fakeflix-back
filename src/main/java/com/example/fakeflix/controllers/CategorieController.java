@@ -1,6 +1,8 @@
 package com.example.fakeflix.controllers;
 
 import com.example.fakeflix.entities.Categorie;
+import com.example.fakeflix.models.categorie.RegisterDTO;
+import com.example.fakeflix.models.categorie.UpsertDTO;
 import com.example.fakeflix.services.CategorieService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,14 +30,16 @@ public class CategorieController {
 
     @Operation(summary = "Créer une categorie")
     @RequestMapping(path = "categorie", method = RequestMethod.POST)
-    public Categorie createCategorie(@RequestBody Categorie categorie) {
-        return categorieService.create(categorie);
+    public Categorie createCategorie(@RequestBody RegisterDTO registerDTO) {
+        Categorie c = registerDTO.toModel();
+        return categorieService.create(c);
     }
 
     @Operation(summary = "Mettre a jour une categorie")
     @RequestMapping(path = "categorie", method = RequestMethod.PUT)
-    public void updateCategorie(@RequestBody Categorie categorie) throws Exception {
-        boolean operationResult = categorieService.update(categorie);
+    public void updateCategorie(@RequestBody UpsertDTO upsertDTO) throws Exception {
+        Categorie c = upsertDTO.mapCategorieModelFromDTO(categorieService.getById(upsertDTO.getId()));
+        boolean operationResult = categorieService.update(c);
         if(!operationResult){
             throw new Exception("categorie inexistante");
         }
