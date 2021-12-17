@@ -1,50 +1,47 @@
 package com.example.fakeflix.models.participation;
 
-import com.example.fakeflix.entities.Utilisateur;
+import com.example.fakeflix.entities.Film;
+import com.example.fakeflix.entities.Participation;
+import com.example.fakeflix.entities.Personne;
+
 
 import java.io.Serializable;
 
 public class RegisterDTO implements Serializable {
 
-    private String Username;
+    private Film film;
 
-    private String Email;
+    private Personne personne;
 
-    private String Password;
+    private Participation.Role role;
 
-    public RegisterDTO(){}
-
-    public String getUsername() {
-        return Username;
+    public Film getFilm() {
+        return film;
     }
 
-    public void setUsername(String username) {
-        this.Username = username;
+    public void setFilm(Film film) {
+        this.film = film;
     }
 
-    public String getEmail() {
-        return Email;
+    public Personne getPersonne() {
+        return personne;
     }
 
-    public void setEmail(String email) {
-        this.Email = email;
+    public void setPersonne(Personne personne) {
+        this.personne = personne;
     }
 
-    public String getPassword() {
-        return Password;
+    public Participation.Role getRole() {
+        return role;
     }
 
-    public void setPassword(String password) {
-        this.Password = password;
+    public void setRole(Participation.Role role) {
+        this.role = role;
     }
 
-
-    public Utilisateur toModel(){
-        Utilisateur u = new Utilisateur();
-        u.setNomUtilisateur(this.getUsername());
-        u.setPassword(this.getPassword());
-        u.setEmail(this.getEmail());
-        return  u;
+    public Participation toModel(){
+        Participation p = new Participation();
+        p.setRole(this.getRole());
+        return p;
     }
-
 }
