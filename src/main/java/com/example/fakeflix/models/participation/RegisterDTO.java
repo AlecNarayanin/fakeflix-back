@@ -1,8 +1,5 @@
 package com.example.fakeflix.models.participation;
-
-import com.example.fakeflix.entities.Film;
 import com.example.fakeflix.entities.Participation;
-import com.example.fakeflix.entities.Personne;
 import com.example.fakeflix.services.FilmService;
 import com.example.fakeflix.services.PersonneService;
 import org.springframework.beans.factory.annotation.Autowired;
