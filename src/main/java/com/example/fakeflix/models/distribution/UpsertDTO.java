@@ -37,7 +37,7 @@ public class UpsertDTO implements Serializable {
         this.dateCreation = dateCreation;
     }
 
-    public Distribution MapDistributionModelFromDTO(Distribution d){
+    public Distribution mapDistributionModelFromDTO(Distribution d){
         d.setNom(this.getNom());
         d.setDateCreation(this.getDateCreation());
         return d;
