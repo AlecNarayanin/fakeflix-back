@@ -34,7 +34,7 @@ public class ParticipationService {
     }
 
     public Participation getById(Integer id){
-        return participationRepository.findById(id);
+        return participationRepository.getById(id);
     }
 
     public Participation create(Participation p){

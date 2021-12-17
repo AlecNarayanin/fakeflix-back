@@ -25,19 +25,19 @@ public class ParticipationController {
         return participationService.getById(id);
     }
 
-    @RequestMapping(value ="/user" , method = RequestMethod.POST)
-    public ResponseEntity<?> createParticipation(@RequestBody UpsertDTO upsertDTO) {
+    @RequestMapping(value ="/participation" , method = RequestMethod.POST)
+    public ResponseEntity<?> createParticipation(@RequestBody UpsertDTO upsertDTO) throws Exception {
         try{
             Participation p = upsertDTO.mapParticipationModelFromDTO(participationService.getById(upsertDTO.getId()));
-            boolean result = participationService.create(p);
-            return ResponseEntity.ok("update success");
+            participationService.create(p);
+            return ResponseEntity.ok("create success");
         }catch (Exception e){
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
 
-    @RequestMapping(value ="/user" , method = RequestMethod.PUT)
-    public ResponseEntity<?> updateParticipation(@RequestBody UpsertDTO upsertDTO) {
+    @RequestMapping(value ="/participation" , method = RequestMethod.PUT)
+    public ResponseEntity<?> updateParticipation(@RequestBody UpsertDTO upsertDTO) throws Exception {
         try{
             Participation p = upsertDTO.mapParticipationModelFromDTO(participationService.getById(upsertDTO.getId()));
             participationService.update(p);
@@ -47,8 +47,8 @@ public class ParticipationController {
         }
     }
 
-    @RequestMapping(value = "/user/{id}" , method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteParticipation(@PathVariable("id") Integer id) {
+    @RequestMapping(value = "/participation/{id}" , method = RequestMethod.DELETE)
+    public ResponseEntity<?> deleteParticipation(@PathVariable("id") Integer id) throws Exception {
         try{
             participationService.delete(id);
             return ResponseEntity.ok("delete success");
