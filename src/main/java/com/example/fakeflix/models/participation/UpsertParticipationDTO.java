@@ -1,28 +1,38 @@
 package com.example.fakeflix.models.participation;
 
-import com.example.fakeflix.entities.Film;
 import com.example.fakeflix.entities.Participation;
-import com.example.fakeflix.entities.Personne;
 import com.example.fakeflix.services.FilmService;
 import com.example.fakeflix.services.PersonneService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
-
 
 import java.io.Serializable;
 
-public class RegisterDTO implements Serializable {
+public class UpsertParticipationDTO implements Serializable {
 
+    @JsonIgnore
+    @Autowired
+    private PersonneService personneService;
+
+    @JsonIgnore
     @Autowired
     private FilmService filmService;
 
-    @Autowired
-    private PersonneService personneService;
+    private Integer id;
 
     private Integer filmId;
 
     private Integer personneId;
 
     private Participation.Role role;
+
+    public PersonneService getPersonneService() {
+        return personneService;
+    }
+
+    public void setPersonneService(PersonneService personneService) {
+        this.personneService = personneService;
+    }
 
     public FilmService getFilmService() {
         return filmService;
@@ -32,12 +42,12 @@ public class RegisterDTO implements Serializable {
         this.filmService = filmService;
     }
 
-    public PersonneService getPersonneService() {
-        return personneService;
+    public Integer getId() {
+        return id;
     }
 
-    public void setPersonneService(PersonneService personneService) {
-        this.personneService = personneService;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getFilmId() {
@@ -64,10 +74,9 @@ public class RegisterDTO implements Serializable {
         this.role = role;
     }
 
-    public Participation toModel(){
-        Participation p = new Participation();
-        p.setFilm(filmService.GetById(this.filmId));
-        p.setPersonne(personneService.getById(this.personneId));
+    public Participation mapParticipationModelFromDTO(Participation p){
+        p.setPersonne(getPersonneService().getById(this.getPersonneId()));
+        p.setFilm(getFilmService().GetById(this.getFilmId()));
         p.setRole(this.getRole());
         return p;
     }

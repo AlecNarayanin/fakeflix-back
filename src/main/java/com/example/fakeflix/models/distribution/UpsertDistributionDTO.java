@@ -1,24 +1,17 @@
-package com.example.fakeflix.entities;
+package com.example.fakeflix.models.distribution;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
+import com.example.fakeflix.entities.Distribution;
+import com.example.fakeflix.entities.Utilisateur;
+
+import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "distribution")
-public class Distribution {
+public class UpsertDistributionDTO implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Integer id;
-
-    @Column(name = "nom")
-    @NotNull
     private String nom;
-
-    @Column(name = "date_creation")
     private Date dateCreation;
+
 
     public Integer getId() {
         return id;
@@ -42,5 +35,11 @@ public class Distribution {
 
     public void setDateCreation(Date dateCreation) {
         this.dateCreation = dateCreation;
+    }
+
+    public Distribution mapDistributionModelFromDTO(Distribution d){
+        d.setNom(this.getNom());
+        d.setDateCreation(this.getDateCreation());
+        return d;
     }
 }

@@ -54,7 +54,7 @@ public class Participation implements Serializable {
 
 
     public enum Role {
-        ACTOR, DIRECTOR
+        ACTING, DIRECTOR
     }
 
 

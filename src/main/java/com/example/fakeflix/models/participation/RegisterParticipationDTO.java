@@ -1,35 +1,28 @@
 package com.example.fakeflix.models.participation;
-
 import com.example.fakeflix.entities.Participation;
 import com.example.fakeflix.services.FilmService;
 import com.example.fakeflix.services.PersonneService;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.beans.factory.annotation.Autowired;
+
 
 import java.io.Serializable;
 
-public class UpsertDTO implements Serializable {
+public class RegisterParticipationDTO implements Serializable {
 
-    @Autowired
-    private PersonneService personneService;
-
+    @JsonIgnore
     @Autowired
     private FilmService filmService;
 
-    private Integer id;
+    @JsonIgnore
+    @Autowired
+    private PersonneService personneService;
 
     private Integer filmId;
 
     private Integer personneId;
 
     private Participation.Role role;
-
-    public PersonneService getPersonneService() {
-        return personneService;
-    }
-
-    public void setPersonneService(PersonneService personneService) {
-        this.personneService = personneService;
-    }
 
     public FilmService getFilmService() {
         return filmService;
@@ -39,12 +32,12 @@ public class UpsertDTO implements Serializable {
         this.filmService = filmService;
     }
 
-    public Integer getId() {
-        return id;
+    public PersonneService getPersonneService() {
+        return personneService;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setPersonneService(PersonneService personneService) {
+        this.personneService = personneService;
     }
 
     public Integer getFilmId() {
@@ -71,9 +64,10 @@ public class UpsertDTO implements Serializable {
         this.role = role;
     }
 
-    public Participation mapParticipationModelFromDTO(Participation p){
-        p.setPersonne(getPersonneService().getById(this.getPersonneId()));
-        p.setFilm(getFilmService().GetById(this.getFilmId()));
+    public Participation toModel(){
+        Participation p = new Participation();
+        p.setFilm(filmService.GetById(this.filmId));
+        p.setPersonne(personneService.getById(this.personneId));
         p.setRole(this.getRole());
         return p;
     }
