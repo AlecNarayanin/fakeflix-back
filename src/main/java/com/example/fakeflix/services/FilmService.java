@@ -40,6 +40,11 @@ public class FilmService {
 
     }
 
+
+    public List<Film> getAll(){
+        return filmRepository.findAll();
+    }
+
     public Boolean addCategorie(Integer filmId , Integer categorieId){
 
         if(filmRepository.existsById(filmId) && categorieRepository.existsById(categorieId)){
@@ -58,6 +63,21 @@ public class FilmService {
             f.setFilmCategories(categories);
             filmRepository.save(f);
             return true;
+        }
+        return false;
+    }
+
+    public Boolean removeCategorie(Integer filmId , Integer categorieId){
+
+        if(filmRepository.existsById(filmId)){
+            Film f = filmRepository.getById(filmId);
+            ArrayList<Categorie> categories = new ArrayList<>(f.getFilmCategories());
+            Categorie g = categories.stream().filter(x -> x.getId() == categorieId).findFirst().orElse(null);
+            if(g!=null){
+                categories.remove(g);
+                f.setFilmCategories(categories);
+                filmRepository.save(f);
+            }
         }
         return false;
     }

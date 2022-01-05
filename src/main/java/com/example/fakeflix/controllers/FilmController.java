@@ -6,12 +6,19 @@ import com.example.fakeflix.services.FilmService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class FilmController {
 
     @Autowired
     private FilmService filmService;
 
+
+    @GetMapping("/film/all")
+    public List<Film> getAllFilms(){
+        return filmService.getAll();
+    }
 
     @PutMapping("/film")
     public Film upsertFilm(@RequestBody UpsertFilmDTO dto){
@@ -26,7 +33,7 @@ public class FilmController {
         }
     }
 
-    @PostMapping("film/{filmId}/categorie/{categorieId}")
+    @PostMapping("/film/{filmId}/categorie/{categorieId}")
     public void addCategorieTofilm(@PathVariable(value = "filmId") Integer filmId , @PathVariable(value = "categorieId") Integer categorieId ) throws Exception{
         boolean operationResult = filmService.addCategorie(filmId,categorieId);
         if(!operationResult){
@@ -34,4 +41,11 @@ public class FilmController {
         }
     }
 
+    @DeleteMapping("/film/{filmId}/categorie/{categorieId}")
+    public void deleteCategorieTofilm(@PathVariable(value = "filmId") Integer filmId , @PathVariable(value = "categorieId") Integer categorieId ) throws Exception{
+        boolean operationResult = filmService.removeCategorie(filmId,categorieId);
+        if(!operationResult){
+            throw new Exception("film ou categorie inexistants");
+        }
+    }
 }
