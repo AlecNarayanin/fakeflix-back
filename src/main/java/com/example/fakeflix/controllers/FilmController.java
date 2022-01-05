@@ -26,7 +26,7 @@ public class FilmController {
         }
     }
 
-    @PostMapping("film/{filmId}/categorie/{categorieId}")
+    @PostMapping("/film/{filmId}/categorie/{categorieId}")
     public void addCategorieTofilm(@PathVariable(value = "filmId") Integer filmId , @PathVariable(value = "categorieId") Integer categorieId ) throws Exception{
         boolean operationResult = filmService.addCategorie(filmId,categorieId);
         if(!operationResult){
@@ -34,4 +34,11 @@ public class FilmController {
         }
     }
 
+    @DeleteMapping("/film/{filmId}/categorie/{categorieId}")
+    public void deleteCategorieTofilm(@PathVariable(value = "filmId") Integer filmId , @PathVariable(value = "categorieId") Integer categorieId ) throws Exception{
+        boolean operationResult = filmService.removeCategorie(filmId,categorieId);
+        if(!operationResult){
+            throw new Exception("film ou categorie inexistants");
+        }
+    }
 }

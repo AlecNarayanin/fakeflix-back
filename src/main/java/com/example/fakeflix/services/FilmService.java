@@ -61,4 +61,19 @@ public class FilmService {
         }
         return false;
     }
+
+    public Boolean removeCategorie(Integer filmId , Integer categorieId){
+
+        if(filmRepository.existsById(filmId)){
+            Film f = filmRepository.getById(filmId);
+            ArrayList<Categorie> categories = new ArrayList<>(f.getFilmCategories());
+            Categorie g = categories.stream().filter(x -> x.getId() == categorieId).findFirst().orElse(null);
+            if(g!=null){
+                categories.remove(g);
+                f.setFilmCategories(categories);
+                filmRepository.save(f);
+            }
+        }
+        return false;
+    }
 }
