@@ -1,8 +1,8 @@
 package com.example.fakeflix.controllers;
 
 import com.example.fakeflix.entities.Distribution;
-import com.example.fakeflix.models.distribution.RegisterDTO;
-import com.example.fakeflix.models.distribution.UpsertDTO;
+import com.example.fakeflix.models.distribution.RegisterDistributionDTO;
+import com.example.fakeflix.models.distribution.UpsertDistributionDTO;
 import com.example.fakeflix.services.DistributionService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,15 +30,15 @@ public class DistributionController {
 
     @Operation(summary = "Créer une distribution")
     @RequestMapping(path = "/distribution", method = RequestMethod.POST)
-    public Distribution createDistribution(@RequestBody RegisterDTO registerDTO) {
-        Distribution d = registerDTO.toModel();
+    public Distribution createDistribution(@RequestBody RegisterDistributionDTO registerDistributionDTO) {
+        Distribution d = registerDistributionDTO.toModel();
         return distributionService.create(d);
     }
 
     @Operation(summary = "Mettre a jour une distribution")
     @RequestMapping(path = "/distribution", method = RequestMethod.PUT)
-    public void updateCategorie(@RequestBody UpsertDTO upsertDTO) throws Exception {
-        Distribution d = upsertDTO.mapDistributionModelFromDTO(distributionService.getById(upsertDTO.getId()));
+    public void updateCategorie(@RequestBody UpsertDistributionDTO upsertDistributionDTO) throws Exception {
+        Distribution d = upsertDistributionDTO.mapDistributionModelFromDTO(distributionService.getById(upsertDistributionDTO.getId()));
         boolean operationResult = distributionService.update(d);
         if(!operationResult){
             throw new Exception("distribution inexistante");
