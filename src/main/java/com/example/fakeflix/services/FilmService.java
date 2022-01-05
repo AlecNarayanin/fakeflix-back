@@ -40,6 +40,11 @@ public class FilmService {
 
     }
 
+
+    public List<Film> getAll(){
+        return filmRepository.findAll();
+    }
+
     public Boolean addCategorie(Integer filmId , Integer categorieId){
 
         if(filmRepository.existsById(filmId) && categorieRepository.existsById(categorieId)){
